@@ -6,9 +6,18 @@ use App\Models\Reservations;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 class ReservationsController extends Controller
 {
+
+    public function index(){
+          /** @var User $user */
+$user = Auth::user();
+$reservations = $user->reservations()->with('room')->paginate(6);
+        return view('reservations.index', compact('reservations'));
+    }
+
+
     public function create(Room $room){
 
         return view('reservations.new-reservation' , compact('room'));
@@ -63,4 +72,19 @@ class ReservationsController extends Controller
 
 
     }
+
+
+
+    public function destroy(Reservations $reservation)
+{
+    /** @var \App\Models\User $user */
+$user = Auth::user();
+    if ($reservation->user_id !== $user->user_id) {
+        abort(403);
+    }
+    $reservation->delete();
+
+    return redirect()->route('reservations.index')->with('success', 'Reservation cancelled successfully.');
+}
+
 }

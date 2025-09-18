@@ -14,9 +14,9 @@
 
     <!-- About -->
     <section class="max-w-4xl mx-auto py-12 text-center">
-        <h2 class="text-3xl font-semibold mb-4">About Hotel Abdel Qader</h2>
+        <h2 class="text-3xl font-semibold mb-4">About Hotel Abd AlQader</h2>
         <p class="text-gray-700">
-            Hotel Abdel Qader offers a unique experience that blends comfort and luxury. 
+            Hotel Abd AlQader offers a unique experience that blends comfort and luxury. 
             Enjoy breathtaking views, premium services, and a stay you will never forget.
         </p>
     </section>

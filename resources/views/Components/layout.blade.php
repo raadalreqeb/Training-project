@@ -44,12 +44,7 @@
 
        @auth
 
-       <form method="post" action="/logout">
-
-       @csrf
-       <x-from-button>Log out </x-from-button>
-
-       </form>
+       <x-user-dropdown/>
          
        @endauth
          

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminReservationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\Rooms;
@@ -30,6 +31,12 @@ Route::get('/rooms/{id}', [RoomsController::class, 'rooms']);
 Route::middleware('auth')->group(function () {
     Route::get('/rooms/{room}/reservation', [ReservationsController::class, 'create'])->name('reservations.create');
     Route::post('/rooms/{room}/reservation', [ReservationsController::class, 'store'])->name('reservations.store');
+    Route::get('/my-reservations', [ReservationsController::class, 'index'])->name('reservations.index');
+    Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('reservations.destroy');
+     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
 });
 
 
