@@ -8,7 +8,7 @@
         <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb21055" 
              class="w-full h-[500px] object-cover opacity-70" alt="Hotel Abd Al-Qader">
         <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-5xl font-bold text-white">Welcome to Hotel Abdel Qader</h1>
+            <h1 class="text-5xl font-bold text-white">Welcome to Hotel Abd AlQader</h1>
         </div>
     </div>
 
