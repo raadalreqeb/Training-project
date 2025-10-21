@@ -34,6 +34,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
               'phone' => fake()->phoneNumber(),
+                'google_id' => null, // for Google accounts
+            'avatar' => fake()->imageUrl(200, 200, 'people'),
 
         ];
     }

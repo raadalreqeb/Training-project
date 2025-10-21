@@ -5,10 +5,10 @@ use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\ReservationsController;
-use App\Http\Controllers\Rooms;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 
 
 
@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/rooms/{room}/reservation', [ReservationsController::class, 'store'])->name('reservations.store');
     Route::get('/my-reservations', [ReservationsController::class, 'index'])->name('reservations.index');
     Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('reservations.destroy');
-     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -42,11 +42,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::prefix('admin')->middleware(['auth' , 'role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     // Admin Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-     //Route::get('/reservations', [AdminController::class, 'allReservations'])->name('admin.reservations.index');
+    //Route::get('/reservations', [AdminController::class, 'allReservations'])->name('admin.reservations.index');
 
     // Rooms Routes
     Route::prefix('rooms')->group(function () {
@@ -65,23 +65,25 @@ Route::prefix('admin')->middleware(['auth' , 'role:admin'])->group(function () {
 
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    // عرض كل الحجوزات
+
     Route::get('/reservations', [AdminReservationController::class, 'allReservations'])
         ->name('admin.reservations.index');
 
-    // صفحة تعديل الحجز
+
     Route::get('/reservations/{reservation}/edit', [AdminReservationController::class, 'edit'])
         ->name('admin.reservations.edit');
 
-    // تحديث بيانات الحجز
     Route::put('/reservations/{reservation}', [AdminReservationController::class, 'update'])
         ->name('admin.reservations.update');
 
-    // حذف الحجز
+
     Route::delete('/reservations/{reservation}', [AdminReservationController::class, 'destroyreservation'])
         ->name('admin.reservations.destroy');
 });
 
+// Google OAuth
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 Route::get('/', function () {
     return view('home');
 });

@@ -1,4 +1,4 @@
- <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-              <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6"></div>
-              <input {{ $attributes->merge(['class'=>'block min-w-0 grow bg-white py-1.5 pr-3 pl-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6']) }} />
-  </div>
+<div class="flex items-center rounded-xl border-2 border-gray-200 bg-white pl-3 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-200 transition-all duration-300">
+    <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6"></div>
+    <input {{ $attributes->merge(['class'=>'block min-w-0 grow bg-transparent py-3 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6']) }} />
+</div>

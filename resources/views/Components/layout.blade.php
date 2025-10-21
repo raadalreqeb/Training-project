@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-100">
+<html lang="en" class="h-full bg-gradient-to-br from-gray-50 to-gray-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-
+    <title>Abd AlQader Hotel</title>
 </head>
-<body >
+<body class="h-full">
 
-<div class="min-h-full">
-  <nav class="bg-gray-800">
+<div >
+  <nav class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl border-b border-gray-700">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="shrink-0">
-            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" class="size-8" />
+            <div class="flex items-center gap-2">
+              <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Abd AlQader Hotel" class="size-8" />
+              <span class="text-white font-bold text-lg hidden sm:block">Abd AlQader Hotel</span>
+            </div>
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
@@ -95,14 +97,14 @@
     </el-disclosure>
   </nav>
 
-  <header class="relative bg-white shadow-sm">
+  <header class="relative bg-white shadow-md border-b border-gray-200">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900 ">{{ $heading }}</h1>
+      <h1 class="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{{ $heading }}</h1>
     
     </div>
   </header>
-  <main>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <main class="bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
      
     </div>
   </main>
