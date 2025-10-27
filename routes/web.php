@@ -29,7 +29,8 @@ Route::get('/rooms/{id}', [RoomsController::class, 'rooms']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/rooms/{room}/reservation', [ReservationsController::class, 'create'])->name('reservations.create');
+    Route::get('/rooms/{room}/reservation/create', [ReservationsController::class, 'create'])->name('reservations.create');
+    Route::post('/rooms/{room}/reservation/preview', [ReservationsController::class, 'preview'])->name('reservations.preview');
     Route::post('/rooms/{room}/reservation', [ReservationsController::class, 'store'])->name('reservations.store');
     Route::get('/my-reservations', [ReservationsController::class, 'index'])->name('reservations.index');
     Route::delete('/reservations/{reservation}', [ReservationsController::class, 'destroy'])->name('reservations.destroy');

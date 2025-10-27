@@ -30,7 +30,7 @@
                 </div>
             @endif
 
-            <form action="/rooms/{{ $room->room_id }}/reservation" method="POST" class="space-y-6">
+            <form action="/rooms/{{ $room->room_id }}/reservation/preview" method="POST" class="space-y-6">
                 @csrf
 
                 <div>
@@ -50,7 +50,7 @@
                 <div class="border-t border-gray-200 pt-6">
                     <button type="submit" 
                             class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold px-6 py-3.5 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        Confirm Reservation
+                        Continue to Confirmation
                     </button>
                 </div>
             </form>

@@ -12,7 +12,10 @@ class Room extends Model
     protected $table ='rooms';
 
      protected $primaryKey = 'room_id';
-     protected $guarded =[];
+
+       public $incrementing = true;      
+    protected $keyType = 'int';  
+      protected $guarded =[];
 
      public function reservations()
 {
