@@ -6,6 +6,7 @@ use App\Models\Reservations;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Invoice;
 class ReservationsController extends Controller
 {
 
@@ -104,7 +105,27 @@ $reservations = $user->reservations()->with('room')->paginate(6);
 
          $reservation = Reservations::create($validated);
 
-         return redirect()->route('rooms.index-user')->with('success', 'Reservation created successfully!');
+         $nights = $start->diffInDays($end);
+         $totalAmount = $nights * $room->price;
+         $taxAmount = $totalAmount * 0.16;
+         $finalAmount = $totalAmount + $taxAmount;
+
+         $lastInvoice = Invoice::latest('invoice_id')->first();
+         $invoiceNumber = 'INV-' . date('Y') . '-' . str_pad(($lastInvoice ? $lastInvoice->invoice_id + 1 : 1), 4, '0', STR_PAD_LEFT);
+
+         $invoice = Invoice::create([
+             'reservation_id' => $reservation->Reservation_ID,
+             'invoice_number' => $invoiceNumber,
+             'total_amount' => $totalAmount,
+             'tax_amount' => $taxAmount,
+             'discount' => 0,
+             'final_amount' => $finalAmount,
+             'status' => 'pending',
+             'issued_date' => now(),
+             'due_date' => $reservation->start_date,
+         ]);
+
+         return redirect()->route('payments.create', $invoice)->with('success', 'Reservation created successfully!');
  
 
 

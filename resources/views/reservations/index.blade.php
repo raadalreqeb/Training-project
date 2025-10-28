@@ -21,6 +21,7 @@
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Check-in</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Check-out</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Payment</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Total Price</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Actions</th>
                             </tr>
@@ -42,14 +43,33 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="font-bold text-indigo-600">${{ $reservation->total_price }}</span>
+                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                            {{ $reservation->payment_status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                            {{ ucfirst($reservation->payment_status) }}
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="font-bold text-indigo-600">${{ $reservation->total_price }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm space-x-2">
+                                        @if($reservation->invoice && $reservation->payment_status !== 'paid')
+                                            <a href="{{ route('invoices.show', $reservation->invoice) }}" 
+                                               class="text-indigo-600 hover:text-indigo-900 font-semibold hover:underline">
+                                                Pay
+                                            </a>
+                                        @endif
+                                        @if($reservation->invoice)
+                                            <a href="{{ route('invoices.show', $reservation->invoice) }}" 
+                                               class="text-blue-600 hover:text-blue-900 font-semibold hover:underline">
+                                                Invoice
+                                            </a>
+                                        @endif
                                         <form method="POST" action="{{ route('reservations.destroy', $reservation->Reservation_ID) }}" 
+                                              class="inline"
                                               onsubmit="return confirm('Are you sure you want to cancel this reservation?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="text-red-600 hover:text-red-800 font-semibold text-sm hover:underline transition-colors duration-200">
+                                            <button class="text-red-600 hover:text-red-800 font-semibold hover:underline transition-colors duration-200">
                                                 Cancel
                                             </button>
                                         </form>

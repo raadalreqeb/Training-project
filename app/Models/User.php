@@ -59,4 +59,16 @@ class User extends Authenticatable
 {
      return $this->hasMany(Reservations::class, 'user_id' , 'user_id');
 }
+
+    public function invoices()
+    {
+        return $this->hasManyThrough(
+            Invoice::class,
+            Reservations::class,
+            'user_id',
+            'reservation_id',
+            'user_id',
+            'Reservation_ID'
+        );
+    }
 }

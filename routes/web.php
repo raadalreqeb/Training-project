@@ -9,6 +9,9 @@ use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminInvoiceController;
 
 
 
@@ -38,6 +41,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::post('/reservations/{reservation}/invoice', [InvoiceController::class, 'createFromReservation'])->name('invoices.create');
+
+    Route::get('/payments/{invoice}/create', [PaymentController::class, 'create'])->name('payments.create');
+    Route::post('/payments/{invoice}', [PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/payments/{payment}/process', [PaymentController::class, 'process'])->name('payments.process');
+    Route::get('/payments/{payment}/success', [PaymentController::class, 'success'])->name('payments.success');
+    Route::get('/payments/{payment}/failed', [PaymentController::class, 'failed'])->name('payments.failed');
 });
 
 
@@ -57,10 +69,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/{room}', [AdminController::class, 'show'])->name('admin.rooms.show');
         Route::get('/{room}/edit', [AdminController::class, 'edit'])->name('admin.rooms.edit');
         Route::put('/{room}', [AdminController::class, 'update'])->name('admin.rooms.update');
+        Route::get('/{room}/delete', [AdminController::class, 'confirmDelete'])->name('admin.rooms.confirm-delete');
         Route::delete('/{room}', [AdminController::class, 'destroy'])->name('admin.rooms.destroy');
     });
 
     // Create Admin
+    Route::get('/create-admin', [AdminController::class, 'createAdminForm'])->name('admin.create.form');
     Route::post('/create-admin', [AdminController::class, 'createAdmin'])->name('create.admin');
 });
 
@@ -80,6 +94,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     Route::delete('/reservations/{reservation}', [AdminReservationController::class, 'destroyreservation'])
         ->name('admin.reservations.destroy');
+
+    Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('admin.invoices.index');
+    Route::get('/invoices/{invoice}', [AdminInvoiceController::class, 'show'])->name('admin.invoices.show');
+    Route::post('/invoices/{invoice}/discount', [AdminInvoiceController::class, 'applyDiscount'])->name('admin.invoices.discount');
+    Route::post('/invoices/{invoice}/cancel', [AdminInvoiceController::class, 'cancel'])->name('admin.invoices.cancel');
+    Route::post('/payments/{payment}/confirm', [AdminInvoiceController::class, 'confirmPayment'])->name('admin.payments.confirm');
 });
 
 // Google OAuth

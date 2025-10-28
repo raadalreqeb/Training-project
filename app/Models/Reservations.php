@@ -14,6 +14,11 @@ class Reservations extends Model
 
     protected $primaryKey = 'Reservation_ID';
      protected $guarded =[];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
  
        public function user()
     {
@@ -22,6 +27,11 @@ class Reservations extends Model
       public function room()
     {
         return $this->belongsTo(Room::class, 'room_id');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'reservation_id', 'Reservation_ID');
     }
 
 }

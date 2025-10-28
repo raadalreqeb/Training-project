@@ -29,6 +29,20 @@
                Rooms
           </x-nav-link>
              
+              @auth
+                @if(auth()->user()->role_id === 1)
+                  <x-nav-link href="{{ route('admin.invoices.index') }}" :active="request()->is('admin/invoices*')">
+                    Invoices
+                  </x-nav-link>
+                  <x-nav-link href="{{ route('admin.create.form') }}" :active="request()->is('admin/create-admin')">
+                    Create Admin
+                  </x-nav-link>
+                @else
+                  <x-nav-link href="{{ route('invoices.index') }}" :active="request()->is('invoices*')">
+                    My Invoices
+                  </x-nav-link>
+                @endif
+              @endauth
             </div>
           </div>
         </div>

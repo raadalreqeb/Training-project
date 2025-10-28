@@ -9,14 +9,14 @@ class RoomsController extends Controller
 {
     public function index(){
 
-        $rooms=Room::with(['reservations.user'])->paginate(6);
+        $rooms=Room::with(['reservations.user'])->paginate(8);
 
         return view('rooms.index' , compact('rooms'));
     }
       
      
     public function indexuser(){
-  $rooms=Room::with(['reservations.user'])->paginate(6);
+  $rooms=Room::with(['reservations.user'])->paginate(8);
 
         return view('rooms.index-user' , compact('rooms'));
     }

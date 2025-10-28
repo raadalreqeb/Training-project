@@ -25,17 +25,31 @@ class AdminController extends Controller
 
 
 
-      public function createAdmin()
+      public function createAdminForm()
+      {
+          return view('admin.create-admin');
+      }
+
+      public function createAdmin(Request $request)
     {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'nullable|string|max:20',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
         User::create([
-            'first_name' => 'New',
-            'last_name' => 'Admin',
-            'email' => 'newadmin@example.com',
-            'password' => Hash::make('password123'),
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'password' => Hash::make($validated['password']),
             'role_id' => 1, 
         ]);
 
-        return redirect()->back()->with('success', 'Admin created!');
+        return redirect()->route('admin.create.form')->with('success', 'Admin created successfully!');
     }
     
 
@@ -97,6 +111,11 @@ public function update(Request $request, Room $room)
                      ->with('success', 'Room updated successfully!');
 }
 
+
+public function confirmDelete(Room $room)
+{
+    return view('admin.rooms.delete', compact('room'));
+}
 
 public function destroy(Room $room)
 {
